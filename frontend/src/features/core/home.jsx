@@ -1,5 +1,7 @@
+import LocationSelector from "../../shared/components/LocationSelector";
 import LocationCard from "../amenities/components/LocationCard";
-
+import LocationSection from "../core/buidling/LocationSection";
+import MapEmbed from "./buidling/MapEmbed";
  const location = {
     name: "Downtown Cowork",
     city: "Austin",
@@ -13,12 +15,17 @@ import LocationCard from "../amenities/components/LocationCard";
   };
 
 export default function Home( ) {
-    return (
+    return (      
         <div>
-            <h1>Home Page</h1>
-            <LocationCard location=  {location}/>
-        </div>
-        
+            
+            <main className="flex-grow">
+              <LocationSelector/>
+              <LocationSection />
+              <MapEmbed /> {/* Optional */}
+            
+              <LocationCard location=  {location}/>
+            </main>                        
+        </div>        
     )
 }
 

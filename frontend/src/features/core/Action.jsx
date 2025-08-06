@@ -1,5 +1,10 @@
 export default function Action( ) {
     return (
-        <div>Action Page</div>
+
+        <div>
+            <br/>
+            <br/>
+            Action Page
+        </div>
     )
 }

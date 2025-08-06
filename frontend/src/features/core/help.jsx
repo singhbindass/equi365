@@ -1,5 +1,9 @@
 export default function Help( ) {
     return (
-        <div>Help Page</div>
+        <div>
+            <br/>
+            <br/>
+            Help Page
+         </div>
     )
 }
