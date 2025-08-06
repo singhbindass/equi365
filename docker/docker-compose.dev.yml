@@ -1,0 +1,27 @@
+version: '3'
+services:
+  frontend:
+    build: ../frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../frontend:/app
+    command: ["npm", "run", "dev"]
+
+  backend:
+    build: ../backend
+    ports:
+      - "5000:5000"
+    environment:
+      - DATABASE_URL=mysql://root:password@mysql:3306/premium
+    volumes:
+      - ../backend:/app
+    command: ["npm", "run", "dev"]
+
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: premium
+    ports:
+      - "3306:3306"
