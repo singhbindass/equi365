@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "homepage": "https://singhbindass.github.io/equi365",
-
   "scripts": {
      "predeploy": "npm run build",
       "deploy": "gh-pages -d dist",
