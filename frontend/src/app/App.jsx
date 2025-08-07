@@ -12,7 +12,7 @@ export default function App() {
     
     <div className="p-8 flex justify-center">
           
-          <Router>
+          <Router  basename="/equi365">
             <Routes>
                 <Route element={<Layout/>}>
                 {
