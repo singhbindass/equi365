@@ -4,6 +4,7 @@ import ImageSlider from "../../shared/components/ui/component/slider";
 import LocationCard from "../amenities/components/LocationCard";
 import LocationSection from "../core/buidling/LocationSection";
 import MapEmbed from "./buidling/MapEmbed";
+import WhyChooseSection from "./YourWhyChooseSectionHere";
  const location = {
     name: "Downtown Cowork",
     city: "Austin",
@@ -28,11 +29,12 @@ export default function Home( ) {
         <div>
             
             <main className="flex-grow">
-             
+           
              <ResponsiveOverlay/>
- <div className="flex flex-row items-start gap-6">
-         <LocationSection location={location}/>
-        </div>
+               <WhyChooseSection />
+             <div className="flex flex-row items-start gap-6">
+                <LocationSection location={location}/>
+             </div>
 
             </main>                        
         </div>        

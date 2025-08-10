@@ -2,7 +2,7 @@ import LocationSelector from "./LocationSelector";
 
 export default function ResponsiveOverlay() {
   return (
-    <div className="relative w-[105%] h-[70vh] sm:h-[60vh] lg:h-[65vh] overflow-hidden">
+    <div className="relative w-[100%] h-[70vh] sm:h-[60vh] lg:h-[65vh] overflow-hidden">
       {/* Background video (full width always) */}
       <video
         className="absolute top-0 left-0 w-full h-full object-cover sm:object-center"
