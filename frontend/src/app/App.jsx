@@ -10,7 +10,7 @@ export default function App() {
 
   return (
     
-    <div className="p-8 flex justify-center">
+    <div className="p-1 flex ">
           
           <Router  basename="/equi365">
             <Routes>

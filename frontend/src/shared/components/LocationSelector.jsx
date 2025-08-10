@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import mockFetch from '../../mock/mockFetch';
-/* -------------------- COMPONENT -------------------- */
+import mockFetch from "../../mock/mockFetch";
+import ISelect from "./ui/component/select";
+
 export default function LocationSelector() {
   const [countries, setCountries] = useState([]);
   const [states, setStates] = useState([]);
@@ -10,12 +11,12 @@ export default function LocationSelector() {
   const [selectedState, setSelectedState] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
 
-  // Load countries initially
+  // Load countries
   useEffect(() => {
     mockFetch("/api/countries").then(setCountries);
   }, []);
 
-  // Load states when country changes
+  // Load states
   useEffect(() => {
     if (selectedCountry) {
       mockFetch(`/api/states?countryId=${selectedCountry}`).then(setStates);
@@ -25,7 +26,7 @@ export default function LocationSelector() {
     }
   }, [selectedCountry]);
 
-  // Load cities when state changes
+  // Load cities
   useEffect(() => {
     if (selectedState) {
       mockFetch(`/api/cities?stateId=${selectedState}`).then(setCities);
@@ -34,50 +35,50 @@ export default function LocationSelector() {
   }, [selectedState]);
 
   return (
-    <div className="flex flex-col md:flex-row gap-4 w-full max-w-3xl mx-auto p-4">
-      {/* Country Select */}
-      <select
-        className="flex-1 border border-gray-300 p-2 rounded-lg bg-white focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
-        value={selectedCountry}
-        onChange={(e) => setSelectedCountry(e.target.value)}
-      >
-        <option value="">Select Country</option>
-        {countries.map((country) => (
-          <option key={country.id} value={country.id}>
-            {country.name}
-          </option>
-        ))}
-      </select>
+    <div className="rounded-xl w-full max-w-3xl mx-auto p-2">
+      <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center text-white ">
+        Choose Your Location
+      </h2>
+      
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Country */}
+        <div className="flex flex-col">         
+          <ISelect
+            value={selectedCountry}
+            onChange={(e) => setSelectedCountry(e.target.value)}
+            options={countries}
+            placeholder="Select Country"
+          />
+       
+        </div>
 
-      {/* State Select */}
-      <select
-        className="flex-1 border border-gray-300 p-2 rounded-lg bg-white focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
-        value={selectedState}
-        onChange={(e) => setSelectedState(e.target.value)}
-        disabled={!states.length}
-      >
-        <option value="">Select State</option>
-        {states.map((state) => (
-          <option key={state.id} value={state.id}>
-            {state.name}
-          </option>
-        ))}
-      </select>
+        {/* State */}
+        <div className="flex flex-col">
+          
+          <ISelect
+            id="state"
+            value={selectedState}
+            onChange={(e) => setSelectedState(e.target.value)}
+            disabled={!states.length}   
+            options={states}
+            placeholder="Select State"        
+          />  
+        </div>
 
-      {/* City Select */}
-      <select
-        className="flex-1 border border-gray-300 p-2 rounded-lg bg-white focus:border-blue-500 focus:ring focus:ring-blue-200 transition"
-        value={selectedCity}
-        onChange={(e) => setSelectedCity(e.target.value)}
-        disabled={!cities.length}
-      >
-        <option value="">Select City</option>
-        {cities.map((city) => (
-          <option key={city.id} value={city.id}>
-            {city.name}
-          </option>
-        ))}
-      </select>
+        {/* City */}
+        <div className="flex flex-col">
+         
+           <ISelect
+            id="city"
+            value={selectedCity}
+            onChange={(e) => setSelectedCity(e.target.value)}
+            disabled={!states.length}   
+            options={cities}
+            placeholder="Select City"        
+          />  
+         
+        </div>
+      </div>
     </div>
   );
 }
