@@ -19,12 +19,11 @@ export default function Header() {
   const [loginOpen, setLoginOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const { user, logout } = useAuth();
-
-  // Close profile menu on click outside
   const profileRef = useRef();
+
   useEffect(() => {
-    function handleClickOutside(event) {
-      if (profileRef.current && !profileRef.current.contains(event.target)) {
+    function handleClickOutside(e) {
+      if (profileRef.current && !profileRef.current.contains(e.target)) {
         setProfileMenuOpen(false);
       }
     }
@@ -32,7 +31,6 @@ export default function Header() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Simple user initials for avatar if no image
   const userInitials = user
     ? user.name
         .split(" ")
@@ -42,32 +40,29 @@ export default function Header() {
     : "";
 
   return (
-    <header className="bg-white shadow-md w-full z-40">
-      <div className="max-w-7xl mx-auto flex justify-between items-center px-4 sm:px-6 lg:px-8 py-2">
-        {/* Logo + Title */}
-        <div className="h-8 md:h-8 lg:h-8 flex items-center">
-          <Link to="/" className="flex items-center space-x-3">
-            <img
-              src={`${window.location.origin}/assets/logo.jpeg`}
-              alt="Logo"
-              className="h-12 w-auto object-contain p-0 m-0"
-              loading="lazy"
-            />
-          </Link>
-        </div>
+    <header className="bg-white shadow-md w-full z-50">
+      <div className="max-w-7xl mx-auto flex justify-between items-center px-4 sm:px-6 py-5">
+        {/* Logo */}
+        <Link to="/" className="flex items-center space-x-3">
+          <img
+            src={`${window.location.origin}/assets/logo.jpeg`}
+            alt="Logo"
+            className="h-16 w-auto object-contain" // Increased from h-12
+            loading="lazy"
+          />
+        </Link>
 
-        {/* Hamburger button for mobile */}
+        {/* Hamburger Menu (Mobile) */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden focus:outline-none"
+          className="md:hidden text-gray-700 focus:outline-none"
           aria-label="Toggle menu"
         >
           <svg
-            className="w-6 h-6 text-gray-700"
+            className="w-8 h-8"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
           >
             {menuOpen ? (
               <path
@@ -87,13 +82,13 @@ export default function Header() {
           </svg>
         </button>
 
-        {/* Desktop menu */}
-        <nav className="hidden md:flex items-center space-x-6 relative">
+        {/* Desktop Menu */}
+        <nav className="hidden md:flex items-center space-x-8">
           {menuItems.map((item) => (
             <Link
               key={item.path}
               to={item.path}
-              className="text-gray-700 hover:text-blue-600 font-medium whitespace-nowrap"
+              className="text-gray-800 hover:text-gray-900 transition font-medium text-lg tracking-wide" // Increased font size
             >
               {item.name}
             </Link>
@@ -101,19 +96,15 @@ export default function Header() {
 
           {user ? (
             <div className="relative" ref={profileRef}>
-              {/* Profile icon */}
               <button
                 onClick={() => setProfileMenuOpen(!profileMenuOpen)}
-                className="ml-4 w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-semibold text-lg focus:outline-none"
-                aria-label="User menu"
+                className="ml-4 w-12 h-12 rounded-full bg-gray-800 text-white flex items-center justify-center font-semibold text-lg"
               >
                 {userInitials}
               </button>
-
-              {/* Dropdown submenu */}
               {profileMenuOpen && (
-                <div className="absolute right-0 mt-2 w-40 bg-white border rounded-md shadow-lg z-50">
-                  <div className="py-2 px-4 text-gray-800 font-semibold border-b">
+                <div className="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg">
+                  <div className="py-2 px-4 font-semibold border-b text-gray-800">
                     {user.name}
                   </div>
                   <button
@@ -121,7 +112,7 @@ export default function Header() {
                       logout();
                       setProfileMenuOpen(false);
                     }}
-                    className="w-full text-left px-4 py-2 hover:bg-red-100 text-red-600 font-semibold"
+                    className="w-full text-left px-4 py-2 hover:bg-red-50 text-red-600 font-medium"
                   >
                     Logout
                   </button>
@@ -131,7 +122,7 @@ export default function Header() {
           ) : (
             <button
               onClick={() => setLoginOpen(true)}
-              className="text-blue-600 hover:underline font-semibold"
+              className="text-gray-800 hover:underline font-medium text-lg"
             >
               Login
             </button>
@@ -139,32 +130,33 @@ export default function Header() {
         </nav>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile Menu */}
       {menuOpen && (
-        <nav className="md:hidden bg-white border-t border-gray-200 shadow-inner overflow-x-auto">
+        <nav className="md:hidden bg-white border-t border-gray-200 shadow-inner">
           <ul className="flex flex-col space-y-2 p-4">
             {menuItems.map((item) => (
               <li key={item.path}>
                 <Link
                   to={item.path}
                   onClick={() => setMenuOpen(false)}
-                  className="block text-gray-700 hover:text-blue-600 font-medium whitespace-nowrap"
+                  className="block text-gray-800 hover:text-gray-900 font-medium text-lg"
                 >
                   {item.name}
                 </Link>
               </li>
             ))}
-
             <li>
               {user ? (
                 <div className="flex items-center space-x-3">
-                  <span className="text-gray-700 font-semibold">Hi, {user.name}</span>
+                  <span className="text-gray-800 font-medium text-lg">
+                    Hi, {user.name}
+                  </span>
                   <button
                     onClick={() => {
                       logout();
                       setMenuOpen(false);
                     }}
-                    className="text-red-600 hover:underline font-semibold"
+                    className="text-red-600 hover:underline font-medium text-lg"
                   >
                     Logout
                   </button>
@@ -175,7 +167,7 @@ export default function Header() {
                     setLoginOpen(true);
                     setMenuOpen(false);
                   }}
-                  className="text-blue-600 hover:underline font-semibold w-full text-left"
+                  className="text-gray-800 hover:underline font-medium text-lg"
                 >
                   Login
                 </button>
@@ -185,7 +177,6 @@ export default function Header() {
         </nav>
       )}
 
-      {/* Login Modal */}
       <LoginModal isOpen={loginOpen} onClose={() => setLoginOpen(false)} />
     </header>
   );

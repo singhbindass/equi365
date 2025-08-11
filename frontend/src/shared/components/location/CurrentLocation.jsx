@@ -75,40 +75,45 @@ const CurrentLocation = () => {
 
  return (
   <section
-    aria-live="polite"
-    aria-label="Current city and local time"
-    className="inline-flex items-center gap-3 rounded-md border border-gray-300 bg-white px-4 py-2 shadow-sm max-w-full min-w-[160px] min-h-[40px]"
-    role="region"
-  >
-    {/* Flag */}
-    {countryCode ? (
-      <img
-        src={`https://flagcdn.com/w40/${countryCode.toLowerCase()}.png`}
-        alt={`${countryCode} flag`}
-        className="h-6 w-9 rounded-sm object-cover flex-shrink-0"
-        loading="lazy"
-        onError={(e) => (e.currentTarget.style.display = "none")}
-      />
-    ) : (
-      <div className="h-6 w-9 bg-gray-200 rounded-sm animate-pulse" />
-    )}
+  aria-live="polite"
+  aria-label="Current location and local time"
+  className="inline-flex items-center gap-3 px-4 py-2 rounded-lg
+             bg-white shadow-lg border border-gray-200
+             max-w-full sm:min-w-[200px] relative z-10"
+>
+  {/* Flag or loading */}
+  {status === "detecting" ? (
+    <div className="h-6 w-9 bg-gray-200 rounded-sm animate-pulse" />
+  ) : countryCode ? (
+    <img
+      src={`https://flagcdn.com/w40/${countryCode.toLowerCase()}.png`}
+      alt={`${countryCode} flag`}
+      className="h-6 w-9 rounded-sm object-cover flex-shrink-0 border border-gray-300"
+      loading="lazy"
+      onError={(e) => (e.currentTarget.style.display = "none")}
+    />
+  ) : (
+    <div className="h-6 w-9 bg-gray-300 rounded-sm border border-gray-200" />
+  )}
 
-    <div className="flex flex-col min-w-[120px] leading-tight">
-      <span
-        className={`font-semibold text-gray-900 ${
-          status === "error" ? "italic text-red-600" : ""
-        }`}
-      >
-        {city || "Detecting city..."}
-      </span>
-      <time
-        dateTime={time.toISOString()}
-        className="text-gray-600 font-mono text-xs"
-      >
-        {formattedDate} &bull; {formattedTime}
-      </time>
-    </div>
-  </section>
+  {/* Text Info */}
+  <div className="flex flex-col min-w-[120px] leading-tight">
+    <span
+      className={`font-semibold truncate ${
+        status === "error" ? "italic text-red-600" : "text-gray-900"
+      }`}
+    >
+      {city || "Detecting..."}
+    </span>
+    <time
+      dateTime={time.toISOString()}
+      className="text-gray-600 font-mono text-xs"
+    >
+      {formattedDate} • {formattedTime}
+    </time>
+  </div>
+</section>
+
 );
 
 };
