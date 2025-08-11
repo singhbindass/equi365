@@ -22,7 +22,7 @@ const LocationSection = ({ location }) => {
           {/* Building Image */}
           <div className="md:w-1/2 w-full">
             <img
-              src="{`${process.env.PUBLIC_URL}/assets/comp.jpg'"
+              src={`${window.location.origin}/assets/comp.jpg`}
               alt="Company Building"
               className="rounded-2xl shadow-lg w-full h-72 md:h-80 lg:h-[24rem] object-cover"
             />
@@ -37,7 +37,9 @@ const LocationSection = ({ location }) => {
               <LocationCard location={location} />
             </div>
             <a
-              href={`https://maps.google.com/?q=${encodeURIComponent(location.address)}`}
+              href={`https://maps.google.com/?q=${encodeURIComponent(
+                location.address
+              )}`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors duration-300"
