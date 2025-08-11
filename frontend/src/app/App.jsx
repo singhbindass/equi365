@@ -12,7 +12,8 @@ export default function App() {
     
     <div className="p-1 flex ">
           
-          <Router  basename="/equi365">
+        {/*  <Router  basename="/equi365">*/}
+        <Router>
             <Routes>
                 <Route element={<Layout/>}>
                 {
