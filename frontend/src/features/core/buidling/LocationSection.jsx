@@ -22,7 +22,7 @@ const LocationSection = ({ location }) => {
           {/* Building Image */}
           <div className="md:w-1/2 w-full">
             <img
-              src="/assets/comp.jpg"
+              src="{`${process.env.PUBLIC_URL}/assets/comp.jpg'"
               alt="Company Building"
               className="rounded-2xl shadow-lg w-full h-72 md:h-80 lg:h-[24rem] object-cover"
             />

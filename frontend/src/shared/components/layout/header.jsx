@@ -48,7 +48,7 @@ export default function Header() {
         <div className="h-8 md:h-8 lg:h-8 flex items-center">
           <Link to="/" className="flex items-center space-x-3">
             <img
-              src="/assets/logo.jpeg"
+              src="{`${process.env.PUBLIC_URL}/assets/logo.jpeg`"
               alt="Logo"
               className="h-12 w-auto object-contain p-0 m-0"
               loading="lazy"
